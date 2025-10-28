@@ -1,9 +1,11 @@
-import React from 'react';
+import React from "react";
+import Users from "./Components/Users";
 
 const App = () => {
   return (
     <div>
-      <h1 className="text-4xl font-semibold">App Client</h1>
+      <h1 className="text-xl font-semibold">App Client</h1>
+      <Users></Users>
     </div>
   );
 };
