@@ -5,13 +5,19 @@ const Users = () => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
-    console.log(name, email);
+    const newUser = { name, email };
 
-    fetch("")
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
+    fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(newUser),
     })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
 
   return (
