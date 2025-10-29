@@ -1,6 +1,9 @@
-import React from "react";
+import React, { use, useState } from "react";
 
-const Users = () => {
+const Users = ({ userPromise }) => {
+  const usersGotFromDB = use(userPromise);
+  const [users, setUsers] = useState(usersGotFromDB);
+
   const handleAddUser = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -21,6 +24,10 @@ const Users = () => {
       .then((data) => {
         console.log(data);
         if (data.insertedId) {
+          newUser._id = data.insertedId;
+          const newUsers = [...users, newUser];
+          setUsers(newUsers);
+
           alert("User Added Sucessfully");
           form.reset();
         }
@@ -28,10 +35,10 @@ const Users = () => {
   };
 
   return (
-    <div>
+    <div className="flex items-center gap-20 mt-10">
       <form
         onSubmit={handleAddUser}
-        className="flex flex-col gap-5 mt-5 p-5 border rounded-sm"
+        className="flex flex-col gap-5 p-5 border rounded-sm h-[210px]"
       >
         <input
           type="text"
@@ -47,6 +54,20 @@ const Users = () => {
         />
         <button>Submit</button>
       </form>
+
+      <div>
+        <h2 className="text-2xl font-semibold">Users {users.length}</h2>
+
+        <div className="grid grid-cols-4 gap-3">
+          {users.map(({ _id, name, email }) => (
+            <div key={_id} className="relative p-5 border rounded-sm">
+              <h3>{name}</h3>
+              <p>{email}</p>
+              <button className="absolute top-0 right-0 mr-2 p-0! bg-transparent! hover:border-transparent! hover:text-indigo-400">x</button>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
