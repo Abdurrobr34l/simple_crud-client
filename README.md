@@ -1,4 +1,4 @@
-# Simple CRUD Project, Client-Side
+## Simple CRUD Project, Client-Side
 
 1: Installing server  
 ```
@@ -10,4 +10,9 @@ install  npm i express cors mongodb
 2: 
 ```
 Connect Database
+```
+
+## How to start Server
+```
+nodemon run dev
 ```

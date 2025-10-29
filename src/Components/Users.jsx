@@ -3,20 +3,27 @@ import React from "react";
 const Users = () => {
   const handleAddUser = (e) => {
     e.preventDefault();
+    const form = e.target;
     const name = e.target.name.value;
     const email = e.target.email.value;
     const newUser = { name, email };
 
+    //* How to send data(User data we got from form) to the server
     fetch("http://localhost:3000/users", {
-      method: "POST",
+      method: "POST", //* STEP-1
       headers: {
+        //* STEP-2
         "Content-type": "application/json",
-      },
+      }, //* STEP-3
       body: JSON.stringify(newUser),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        if (data.insertedId) {
+          alert("User Added Sucessfully");
+          form.reset();
+        }
       });
   };
 
