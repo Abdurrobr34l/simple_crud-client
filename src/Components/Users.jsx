@@ -34,6 +34,22 @@ const Users = ({ userPromise }) => {
       });
   };
 
+  const handleDeleteUser = (id) => {
+    console.log("Delete btn clicked", id);
+    fetch(`http://localhost:3000/users/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.deleteCount) {
+          alert("User Deleted Sucessfully");
+        }
+      });
+  };
+
   return (
     <div className="flex items-center gap-20 mt-10">
       <form
@@ -63,7 +79,12 @@ const Users = ({ userPromise }) => {
             <div key={_id} className="relative p-5 border rounded-sm">
               <h3>{name}</h3>
               <p>{email}</p>
-              <button className="absolute top-0 right-0 mr-2 p-0! bg-transparent! hover:border-transparent! hover:text-indigo-400">x</button>
+              <button
+                onClick={() => handleDeleteUser(_id)}
+                className="absolute top-0 right-0 mr-2 p-0! bg-transparent! hover:border-transparent! hover:text-indigo-400 focus:outline-none!"
+              >
+                x
+              </button>
             </div>
           ))}
         </div>
