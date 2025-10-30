@@ -22,7 +22,7 @@ const Users = ({ userPromise }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.insertedId) {
           newUser._id = data.insertedId;
           const newUsers = [...users, newUser];
@@ -35,17 +35,19 @@ const Users = ({ userPromise }) => {
   };
 
   const handleDeleteUser = (id) => {
-    console.log("Delete btn clicked", id);
+    // console.log("Delete btn clicked", id);
     fetch(`http://localhost:3000/users/${id}`, {
       method: "DELETE",
     })
       .then((response) => {
-        response.json();
+        return response.json();
       })
       .then((data) => {
-        console.log(data);
-        if (data.deleteCount) {
+        // console.log(data);
+        if (data.deletedCount) {
           alert("User Deleted Sucessfully");
+          const remainingUsers = users.filter((user) => user._id !== id);
+          setUsers(remainingUsers);
         }
       });
   };
